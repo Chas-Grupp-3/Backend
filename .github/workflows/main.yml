@@ -28,7 +28,7 @@ jobs:
         run: eslint .
 
       - name: Run tests
-        run: npm test
+        run: npx --no-install jest --verbose --forceExit
 
       - name: Build project
         run: npm run build
