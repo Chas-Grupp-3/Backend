@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint .",
+    "test": "jest",
+    "build": "echo 'Build ok'"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +14,10 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.34.0",
+    "jest": "^30.1.2",
+    "supertest": "^7.1.4"
   }
 }
