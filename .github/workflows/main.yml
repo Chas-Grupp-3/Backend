@@ -25,7 +25,7 @@ jobs:
         run: npm install -g eslint
 
       - name: Run lint
-        run: npm run eslint .
+        run: eslint .
 
       - name: Run tests
         run: npx jest --verbose
