@@ -20,9 +20,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        
+      - name: Install eslint globally
+        run: npm install -g eslint
 
       - name: Run lint
-        run: npx eslint .
+        run: npm run eslint .
 
       - name: Run tests
         run: npx jest --verbose
