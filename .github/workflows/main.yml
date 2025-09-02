@@ -28,7 +28,7 @@ jobs:
         run: eslint .
 
       - name: Run tests
-        run: npx jest --verbose
+        run: npm test
 
       - name: Build project
         run: npm run build
