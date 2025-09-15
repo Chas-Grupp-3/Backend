@@ -2,9 +2,9 @@ name: CI pipeline
 
 on:
   push:
-    branches: ["dev", "feature/ci-cd/v2" ]
+    branches: ["dev", "feature/ci-cd-v2" ]
   pull_request:
-    branches: [ "main", "dev", "feature/ci-cd/v2" ]
+    branches: [ "main", "dev", "feature/ci-cd-v2" ]
   workflow_dispatch:
 
 jobs:
