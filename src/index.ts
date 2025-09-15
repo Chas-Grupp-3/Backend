@@ -14,7 +14,7 @@ app.use("/packages", packages);
 app.use("/user", userRoutes);
 
 app.get("/", (req, res) => res.send("Hello World"));
-sendEmail("testing", "<p>it works!</p>");
+// sendEmail("testing", "<p>it works!</p>");
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
