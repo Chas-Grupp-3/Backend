@@ -6,6 +6,8 @@
     "outDir": "./dist", // Compiled files output
     "strict": true, // Enable all strict type-checking options
     "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true, // Disallow inconsistent casing in imports
     "skipLibCheck": true // Skip type checking of declaration files for faster builds
   },

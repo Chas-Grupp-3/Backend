@@ -1,16 +1,17 @@
-import express, { Request, Response } from "express";
-import { Package } from "../types/packages";
+import express from "express";
+import type { Request, Response } from "express";
+import type { Package } from "../types/packages.ts";
+import { authenticateToken } from "../middlewares/authentication.ts";
 
 const router = express.Router();
 
 let packages: Package[] = [];
-router.get("/"),
-  (res: Response) => {
-    res.json(packages);
-  };
+router.get("/", (req: Request, res: Response) => {
+  res.json(packages);
+});
 
 // Get a package by ID pkg === package
-router.get("/:id", (req: Request, res: Response) => {
+router.get("/:id", authenticateToken, (req: Request, res: Response) => {
   const pkg = packages.find((p) => p.id === req.params.id);
   if (pkg) {
     res.json(pkg);
@@ -20,14 +21,14 @@ router.get("/:id", (req: Request, res: Response) => {
 });
 
 // Create a new package
-router.post("/", (req: Request, res: Response) => {
+router.post("/", authenticateToken, (req: Request, res: Response) => {
   const newPackage: Package = req.body as Package;
   packages.push(newPackage);
   res.status(201).json(newPackage);
 });
 
 // Update a package
-router.put("/:id", (req: Request, res: Response) => {
+router.put("/:id", authenticateToken, (req: Request, res: Response) => {
   const index = packages.findIndex((p) => p.id === req.params.id);
   if (index !== -1) {
     packages[index] = { ...packages[index], ...req.body };
@@ -38,7 +39,7 @@ router.put("/:id", (req: Request, res: Response) => {
 });
 
 // Delete a package
-router.delete("/:id", (req: Request, res: Response) => {
+router.delete("/:id", authenticateToken, (req: Request, res: Response) => {
   const index = packages.findIndex((p) => p.id === req.params.id);
   if (index !== -1) {
     packages.splice(index, 1);
@@ -47,3 +48,5 @@ router.delete("/:id", (req: Request, res: Response) => {
     res.status(404).send("Package not found");
   }
 });
+
+export default router;
