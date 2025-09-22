@@ -23,4 +23,4 @@ jobs:
           PGUSER: ${{ secrets.PGUSER }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
         run: |
-          psql "host=$PGHOST dbname=$PGDATABASE user=$PGUSER password=$PGPASSWORD" -f db/init.sql
+          psql "host=$PGHOST dbname=$PGDATABASE user=$PGUSER password=$PGPASSWORD sslmode=require" -f db/init.sql
