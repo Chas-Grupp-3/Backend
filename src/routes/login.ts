@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { JwtPayload } from "jsonwebtoken";
-import asyncHandler from "../middlewares/asyncHandler.ts";
+import asyncHandler from "../middlewares/asyncHandler.js";
 
 const router = express.Router();
 

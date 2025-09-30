@@ -1,4 +1,4 @@
-import { User } from "./../types/user.ts";
+import { User } from "./../types/user.js";
 const selectDashboard = async (user: User) => {
   if (user.role === "admin") {
     adminDashboard(user);

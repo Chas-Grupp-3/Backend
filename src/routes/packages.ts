@@ -1,7 +1,7 @@
 import express from "express";
 import type { Request, Response } from "express";
-import type { Package } from "../types/packages.ts";
-import { authenticateToken } from "../middlewares/authentication.ts";
+import type { Package } from "../types/packages.js";
+import { authenticateToken } from "../middlewares/authentication.js";
 
 const router = express.Router();
 

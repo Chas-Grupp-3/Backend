@@ -1,14 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
-import pool from "./db.ts";
+import pool from "./db.js";
 import morgan from "morgan";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 // routes
-import login from "./routes/login.ts";
-import packages from "./routes/packages.ts";
-import userRoutes from "./routes/user.ts";
+import login from "./routes/login.js";
+import packages from "./routes/packages.js";
+import userRoutes from "./routes/user.js";
 app.use(morgan("dev"));
 app.use("/login", login);
 app.use("/packages", packages);

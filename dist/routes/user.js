@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticateToken } from "../middlewares/authentication.ts";
+import { authenticateToken } from "../middlewares/authentication.js";
 const router = express.Router();
 let users = [];
 // Get all users

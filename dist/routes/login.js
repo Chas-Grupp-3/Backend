@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import asyncHandler from "../middlewares/asyncHandler.ts";
+import asyncHandler from "../middlewares/asyncHandler.js";
 const router = express.Router();
 const allowedRoles = ["admin", "user", "driver"];
 const db = [];
