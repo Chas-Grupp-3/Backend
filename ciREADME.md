@@ -1,4 +1,4 @@
-## Backend CI/CD pipeline
+## Backend CI pipeline
 
 This is the backend CI pipeline for the Chas Advance project.
 
