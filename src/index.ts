@@ -2,6 +2,7 @@ import express from "express";
 const app = express();
 const PORT = process.env.PORT || 3000;
 import dotenv from "dotenv";
+import morgan from "morgan";
 dotenv.config();
 //routes
 import login from "./routes/login.ts";
@@ -9,6 +10,7 @@ import packages from "./routes/packages.ts";
 import userRoutes from "./routes/user.ts";
 import sendEmail from "./controllers/email.ts";
 
+app.use(morgan("dev"));
 app.use("/login", login);
 app.use("/packages", packages);
 app.use("/user", userRoutes);
