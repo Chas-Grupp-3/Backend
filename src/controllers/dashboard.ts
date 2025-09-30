@@ -1,4 +1,4 @@
-import { User } from "./../types/user";
+import { User } from "./../types/user.ts";
 const selectDashboard = async (user: User) => {
   if (user.role === "admin") {
     adminDashboard(user);
@@ -11,8 +11,8 @@ const selectDashboard = async (user: User) => {
 
 // call selectDashboard to user dashboard functions
 
-const adminDashboard = async (user: User) => {};
+const adminDashboard = async (user: User) => { };
 
-const userDashboard = async (user: User) => {};
+const userDashboard = async (user: User) => { };
 
-const driverDashboard = async (user: User) => {};
+const driverDashboard = async (user: User) => { };

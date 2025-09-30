@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import pool from "./db.ts";
+import morgan from "morgan";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 import login from "./routes/login.ts";
 import packages from "./routes/packages.ts";
 import userRoutes from "./routes/user.ts";
+app.use(morgan("dev"));
 app.use("/login", login);
 app.use("/packages", packages);
 app.use("/user", userRoutes);

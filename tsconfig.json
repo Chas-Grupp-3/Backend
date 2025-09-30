@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
+    "module": "nodenext",
     "moduleResolution": "nodenext",
     "rootDir": "./src",
     "outDir": "./dist",
@@ -10,7 +10,7 @@
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "noEmit": false
+    "noEmit": true
   },
   "include": [
     "src/**/*"
