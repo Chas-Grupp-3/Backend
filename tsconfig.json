@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES2020", // Modern JavaScript output
-    "module": "esnext", // Node.js module system
-    "rootDir": "./src", // Source files location
-    "outDir": "./dist", // Compiled files output
-    "strict": true, // Enable all strict type-checking options
-    "esModuleInterop": true, // Enable compatibility with CommonJS modules
-    "noEmit": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
-    "forceConsistentCasingInFileNames": true, // Disallow inconsistent casing in imports
-    "skipLibCheck": true // Skip type checking of declaration files for faster builds
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "noEmit": false
   },
-  "include": ["src/**/*"], // Include all TS files in src folder
-  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist folders
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
