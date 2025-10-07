@@ -1,8 +1,6 @@
 import express from "express";
-import dotenv from "dotenv";
 import pool from "./db.js";
 import morgan from "morgan";
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 // routes
@@ -25,6 +23,7 @@ app.get("/test-api", async (req, res) => {
         res.status(500).send("Database error");
     }
 });
+console.log("DATABASE_URL som Node.js ser:", process.env.DATABASE_URL);
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
