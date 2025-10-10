@@ -2,53 +2,44 @@ import express from "express";
 import type { Request, Response } from "express";
 import type { User } from "../types/user.js";
 import { authenticateToken } from "../middlewares/authentication.js";
+import pool from "../db.js";
+import {
+  createUser,
+  deleteUser,
+  getAllUsers,
+  getUserById,
+  updateUser,
+} from "../controllers/user.js";
 
 const router = express.Router();
 
-let users: User[] = [];
-
 // Get all users
-router.get("/", authenticateToken, (req: Request, res: Response) => {
-  res.json(users);
+router.get("/", authenticateToken, async (req: Request, res: Response) => {
+  getAllUsers(req, res);
 });
 
 // Get a user by ID
-router.get("/:id", authenticateToken, (req: Request, res: Response) => {
-  const user = users.find((u) => u.id === req.params.id);
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(404).send("User not found");
-  }
+router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
+  getUserById(req, res);
 });
 
 // Create a new user
-router.post("/", authenticateToken, (req: Request, res: Response) => {
-  const newUser: User = req.body as User;
-  users.push(newUser);
-  res.status(201).json(newUser);
+router.post("/", authenticateToken, async (req: Request, res: Response) => {
+  createUser(req, res);
 });
 
 // Update a user
-router.put("/:id", authenticateToken, (req: Request, res: Response) => {
-  const index = users.findIndex((u) => u.id === req.params.id);
-  if (index !== -1) {
-    users[index] = { ...users[index], ...req.body };
-    res.json(users[index]);
-  } else {
-    res.status(404).send("User not found");
-  }
+router.put("/:id", authenticateToken, async (req: Request, res: Response) => {
+  updateUser(req, res);
 });
 
 // Delete a user
-router.delete("/:id", authenticateToken, (req: Request, res: Response) => {
-  const index = users.findIndex((u) => u.id === req.params.id);
-  if (index !== -1) {
-    users.splice(index, 1);
-    res.status(204).send();
-  } else {
-    res.status(404).send("User not found");
+router.delete(
+  "/:id",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    deleteUser(req, res);
   }
-});
+);
 
 export default router;

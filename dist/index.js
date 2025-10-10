@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import pool from "./db.js";
 import morgan from "morgan";
@@ -14,16 +16,15 @@ app.use("/user", userRoutes);
 app.get("/", (req, res) => res.send("Hello World"));
 // test-api endpoint
 app.get("/test-api", async (req, res) => {
-    try {
-        const result = await pool.query("SELECT NOW()");
-        res.json(result.rows);
-    }
-    catch (err) {
-        console.error("❌ Query failed:", err);
-        res.status(500).send("Database error");
-    }
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.json(result.rows);
+  } catch (err) {
+    console.error("❌ Query failed:", err);
+    res.status(500).send("Database error");
+  }
 });
 console.log("DATABASE_URL som Node.js ser:", process.env.DATABASE_URL);
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });

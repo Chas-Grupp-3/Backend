@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import pool from "./db.js";
 import morgan from "morgan";
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;

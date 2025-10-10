@@ -2,7 +2,8 @@ export interface Package {
   id: string;
   location: string;
   temperature: number;
-  status: string;
+  humidity: number;
+  delivered: boolean;
   sender: string;
   date: Date;
 }

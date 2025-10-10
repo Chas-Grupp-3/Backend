@@ -1,52 +1,43 @@
 import express from "express";
 import type { Request, Response } from "express";
-import type { Package } from "../types/packages.js";
 import { authenticateToken } from "../middlewares/authentication.js";
+import {
+  createPackage,
+  deletePackage,
+  getAllPackages,
+  getPackageById,
+  updatePackage,
+} from "../controllers/packages.js";
 
 const router = express.Router();
 
-let packages: Package[] = [];
-router.get("/", (req: Request, res: Response) => {
-  res.json(packages);
+// Get all
+router.get("/", async (req: Request, res: Response) => {
+  getAllPackages(req, res);
 });
 
-// Get a package by ID pkg === package
-router.get("/:id", authenticateToken, (req: Request, res: Response) => {
-  const pkg = packages.find((p) => p.id === req.params.id);
-  if (pkg) {
-    res.json(pkg);
-  } else {
-    res.status(404).send("Package not found");
-  }
+// Get a package by ID
+router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
+  getPackageById(req, res);
 });
 
 // Create a new package
-router.post("/", authenticateToken, (req: Request, res: Response) => {
-  const newPackage: Package = req.body as Package;
-  packages.push(newPackage);
-  res.status(201).json(newPackage);
+router.post("/", authenticateToken, async (req: Request, res: Response) => {
+  createPackage(req, res);
 });
 
 // Update a package
-router.put("/:id", authenticateToken, (req: Request, res: Response) => {
-  const index = packages.findIndex((p) => p.id === req.params.id);
-  if (index !== -1) {
-    packages[index] = { ...packages[index], ...req.body };
-    res.json(packages[index]);
-  } else {
-    res.status(404).send("Package not found");
-  }
+router.put("/:id", authenticateToken, async (req: Request, res: Response) => {
+  updatePackage(req, res);
 });
 
 // Delete a package
-router.delete("/:id", authenticateToken, (req: Request, res: Response) => {
-  const index = packages.findIndex((p) => p.id === req.params.id);
-  if (index !== -1) {
-    packages.splice(index, 1);
-    res.status(204).send();
-  } else {
-    res.status(404).send("Package not found");
+router.delete(
+  "/:id",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    deletePackage(req, res);
   }
-});
+);
 
 export default router;
