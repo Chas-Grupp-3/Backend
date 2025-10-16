@@ -14,11 +14,14 @@ jobs:
       - name: Setup Flyway CLI
         uses: red-gate/setup-flyway@v1
 
-      - name: Check DB connection secrets
+      - name: Check DB connection
+        env:
+          PGHOST: ${{ secrets.PGHOST }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGUSER: ${{ secrets.PGUSER }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
         run: |
-          echo "PGHOST: ${{ secrets.PGHOST }}"
-          echo "PGDATABASE: ${{ secrets.PGDATABASE }}"
-          echo "PGUSER: ${{ secrets.PGUSER }}"
+          psql "postgresql://$PGUSER:$PGPASSWORD@$PGHOST/$PGDATABASE?sslmode=require" -c '\conninfo'
 
       - name: Create Flyway baseline
         env:
