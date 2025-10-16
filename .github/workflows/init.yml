@@ -1,0 +1,26 @@
+name: Init Azure Db
+
+on: 
+  workflow_dispatch: {}
+
+jobs: 
+  init-azure-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Run init.sql against Azure Db
+        env:
+          PGHOST: ${{ secrets.PGHOST }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGUSER: ${{ secrets.PGUSER }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+        run: |
+          psql "host=$PGHOST dbname=$PGDATABASE user=$PGUSER password=$PGPASSWORD sslmode=require" -f db/migrations/init.sql
