@@ -1,6 +1,7 @@
 name: Migrate Azure db with Flyway
 
-on: workflow_dispatch {}
+on:
+  workflow_dispatch: {}
 
 jobs:
   migrate-db:
