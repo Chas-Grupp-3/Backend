@@ -14,32 +14,28 @@ import {
 const router = express.Router();
 
 // Get all users
-router.get("/", authenticateToken, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   getAllUsers(req, res);
 });
 
 // Get a user by ID
-router.get("/:id", authenticateToken, async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
 });
 
 // Create a new user
-router.post("/", authenticateToken, async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   createUser(req, res);
 });
 
 // Update a user
-router.put("/:id", authenticateToken, async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   updateUser(req, res);
 });
 
 // Delete a user
-router.delete(
-  "/:id",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    deleteUser(req, res);
-  }
-);
+router.delete("/:id", async (req: Request, res: Response) => {
+  deleteUser(req, res);
+});
 
 export default router;
