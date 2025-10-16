@@ -1,10 +1,10 @@
 -- Add columns to products table
-ALTER TABLE products
+ALTER TABLE packages
 ADD COLUMN humidity NUMERIC,
 ADD COLUMN delivered BOOLEAN;
 
 -- Remove status column from products table
-ALTER TABLE products
+ALTER TABLE packages
 DROP COLUMN status;
 
 -- Add columns to users table
