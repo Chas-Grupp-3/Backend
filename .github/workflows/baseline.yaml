@@ -21,4 +21,4 @@ jobs:
           PGUSER: ${{secrets.PGUSER}}
           PGPASSWORD: ${{secrets.PGPASSWORD}}
         run: |
-          flyway -url="jdbc:postgresql$PGHOST/$PGDATABASE"  -password="$PGPASSWORD" -- locations="filesystem:db/migrations" baseline
+          flyway -url="jdbc:postgresql$PGHOST/$PGDATABASE"  -password="$PGPASSWORD" -locations="filesystem:db/migrations" baseline
