@@ -71,19 +71,60 @@ export const createPackage = async (req: Request, res: Response) => {
 
 export const updatePackage = async (req: Request, res: Response) => {
   try {
-    const updateData: Partial<Package> = req.body;
-    const keys = Object.keys(updateData);
-    if (keys.length === 0) {
-      return res.status(400).send("No data to update");
+    const { date, temperature, humidity } = req.body;
+    const packageId = req.params.id;
+
+    const columnsToUpdate: string[] = [];
+    const values: any[] = [];
+
+    if (date !== undefined) {
+      columnsToUpdate.push(`date = $${columnsToUpdate.length + 1}`);
+      values.push(date);
+    }
+    if (temperature !== undefined) {
+      columnsToUpdate.push(`temperature = $${columnsToUpdate.length + 1}`);
+      values.push(temperature);
+    }
+    if (humidity !== undefined) {
+      columnsToUpdate.push(`humidity = $${columnsToUpdate.length + 1}`);
+      values.push(humidity);
     }
 
-    const setClause = keys.map((key, idx) => `${key} = $${idx + 1}`).join(", ");
-    const values = Object.values(updateData);
-    values.push(req.params.id); // for WHERE clause
+    if (columnsToUpdate.length === 0) {
+      return res.status(400).send("No valid fields to update");
+    }
 
-    const query = `UPDATE packages SET ${setClause} WHERE id = $${values.length} RETURNING *`;
+    values.push(packageId);
+
+    const query = `UPDATE packages SET ${columnsToUpdate.join(
+      ", "
+    )} WHERE id = $${values.length} RETURNING *`;
 
     const { rows } = await pool.query<Package>(query, values);
+
+    if (rows.length === 0) {
+      return res.status(404).send("Package not found");
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error("Error updating package:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const markAsDelivered = async (req: Request, res: Response) => {
+  try {
+    const packageId = req.params.id;
+
+    const query = `
+  UPDATE packages
+  SET delivered = true
+  WHERE id = $1
+  RETURNING *
+`;
+
+    const { rows } = await pool.query<Package>(query, [packageId]);
 
     if (rows.length === 0) {
       return res.status(404).send("Package not found");

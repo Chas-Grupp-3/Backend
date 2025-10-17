@@ -6,6 +6,7 @@ import {
   deletePackage,
   getAllPackages,
   getPackageById,
+  markAsDelivered,
   updatePackage,
 } from "../controllers/packages.js";
 
@@ -30,6 +31,15 @@ router.post("/", async (req: Request, res: Response) => {
 router.put("/:id", async (req: Request, res: Response) => {
   updatePackage(req, res);
 });
+
+// Update a package frontend
+router.put("/delivered:id", async (req: Request, res: Response) => {
+  markAsDelivered(req, res);
+});
+
+//create update location route
+//add delivered date
+//rewrite part of the API code and make a easy dashboard?
 
 // Delete a package
 router.delete("/:id", async (req: Request, res: Response) => {
