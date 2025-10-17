@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-
+import cors from "cors";
 import express from "express";
 import pool from "./db.js";
 import morgan from "morgan";
@@ -14,6 +14,7 @@ import packages from "./routes/packages.js";
 import userRoutes from "./routes/user.js";
 import sendEmail from "./controllers/email.js";
 
+app.use(cors());
 app.use(morgan("dev"));
 app.use("/login", login);
 app.use("/packages", packages);
