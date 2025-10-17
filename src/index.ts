@@ -16,6 +16,7 @@ import sendEmail from "./controllers/email.js";
 
 app.use(cors());
 app.use(morgan("dev"));
+app.use(express.json());
 app.use("/login", login);
 app.use("/packages", packages);
 app.use("/user", userRoutes);
