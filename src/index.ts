@@ -34,6 +34,11 @@ app.get("/test-api", async (req, res) => {
   }
 });
 
+app.post("/test", (req, res) => {
+  console.log(req.body);
+  res.json({ body: req.body });
+});
+
 console.log("DATABASE_URL som Node.js ser:", process.env.DATABASE_URL);
 
 app.listen(PORT, () => {

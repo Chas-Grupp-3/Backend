@@ -87,7 +87,7 @@ router.post(
     const dbUser = result.rows[0];
 
     if (!dbUser) {
-      return res.status(401).json({ message: "Invalid login credentials" });
+      return res.status(401).json({ message: "Could not find user" });
     }
 
     // Check password
