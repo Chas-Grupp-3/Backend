@@ -30,13 +30,36 @@ export const getPackageById = async (req: Request, res: Response) => {
 
 export const createPackage = async (req: Request, res: Response) => {
   try {
-    const newPackage: Package = req.body;
-    // Adjust columns and values depending on your schema
-    const columns = Object.keys(newPackage).join(", ");
-    const values = Object.values(newPackage);
+    console.log("request data:", req.body);
+    const newPackage = req.body;
+    console.log("package data:", newPackage);
+    // Define the columns you want to insert
+    const columns = [
+      "location",
+      "temperature",
+      "sender",
+      "date",
+      "humidity",
+      "delivered",
+    ];
+
+    // Build an array with values in the same order as columns
+    const values = [
+      newPackage.location,
+      newPackage.temperature ?? null,
+      newPackage.sender,
+      newPackage.date ?? new Date(),
+      newPackage.humidity ?? null,
+      newPackage.delivered ?? null,
+    ];
+
+    // Generate placeholders like $1, $2, $3...
     const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
 
-    const query = `INSERT INTO packages (${columns}) VALUES (${placeholders}) RETURNING *`;
+    const query = `INSERT INTO packages (${columns.join(
+      ", "
+    )}) VALUES (${placeholders}) RETURNING *`;
+
     const { rows } = await pool.query<Package>(query, values);
 
     res.status(201).json(rows[0]);
