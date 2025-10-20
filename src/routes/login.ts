@@ -91,6 +91,7 @@ router.post(
     res.json({
       message: "Login successful",
       token,
+      id: dbUser.id,
       role: dbUser.role,
     });
   })

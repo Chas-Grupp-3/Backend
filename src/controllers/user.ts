@@ -3,7 +3,10 @@ import type { Request, Response } from "express";
 import type { User } from "../types/user.js";
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const { rows } = await pool.query<User>("SELECT * FROM users");
+    const { rows } = await pool.query<User>(
+      "SELECT id, name, email, role FROM users"
+    );
+
     res.json(rows);
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -14,7 +17,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const { rows } = await pool.query<User>(
-      "SELECT * FROM users WHERE id = $1",
+      "SELECT id, name, email, role FROM users WHERE id = $1",
       [req.params.id]
     );
 
