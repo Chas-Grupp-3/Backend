@@ -4,36 +4,17 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import pool from "../db.js"; // Adjust import to your pool instance
+import { User } from "../types/user.js";
 
 const router = express.Router();
-
-interface User {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  role: string;
-}
 
 const allowedRoles = ["admin", "user", "driver"];
 
 router.post(
   "/register",
   asyncHandler(async (req: Request, res: Response) => {
-    const {
-      email,
-      password,
-      name,
-      surname,
-      role,
-    }: {
-      email: string;
-      password: string;
-      name: string;
-      surname: string;
-      role?: string;
-    } = req.body;
-
+    const { email, password, name, role }: User = req.body;
+    console.log(req.body);
     if (role && !allowedRoles.includes(role)) {
       return res.status(400).json({
         message: `Invalid role. Allowed roles are: ${allowedRoles.join(", ")}.`,
@@ -52,8 +33,8 @@ router.post(
     // Hash password and insert user
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(
-      "INSERT INTO users (email, password, name, surname, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, name, surname, role",
-      [email, hashedPassword, name, surname, role || "user"]
+      "INSERT INTO users (email, password, name, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, name, surname, role",
+      [email, hashedPassword, name, role || "user"]
     );
 
     const newUser = result.rows[0];
