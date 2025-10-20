@@ -33,7 +33,7 @@ router.post(
     // Hash password and insert user
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await pool.query(
-      "INSERT INTO users (email, password, name, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, name, surname, role",
+      "INSERT INTO users (email, password, name, role) VALUES ($1, $2, $3, $4) RETURNING id, email, name, role",
       [email, hashedPassword, name, role || "user"]
     );
 
