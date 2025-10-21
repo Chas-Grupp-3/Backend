@@ -1,0 +1,12 @@
+ALTER TABLE packages
+DROP COLUMN IF EXISTS driver_id,
+DROP COLUMN IF EXISTS sender_id;
+
+ALTER TABLE packages
+ADD COLUMN IF NOT EXISTS user_id INT;
+
+ALTER TABLE packages
+ADD CONSTRAINT fk_packages_user
+FOREIGN KEY (user_id)
+REFERENCES users(id)
+ON DELETE SET NULL;

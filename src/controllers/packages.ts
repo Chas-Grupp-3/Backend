@@ -1,6 +1,7 @@
 import pool from "../db.js";
 import type { Request, Response } from "express";
 import type { Package } from "../types/packages.js";
+import { User } from "../types/user.js";
 
 export const getAllPackages = async (req: Request, res: Response) => {
   try {
@@ -12,10 +13,20 @@ export const getAllPackages = async (req: Request, res: Response) => {
   }
 };
 
-export const getPackageById = async (req: Request, res: Response) => {
+export const getPackageByUserId = async (req: Request, res: Response) => {
   try {
+    console.log(req.params.id);
+    const userId = parseInt(req.params.id as string, 10);
+
+    const result = await pool.query<User>(
+      "SELECT role FROM users WHERE id = $1",
+      [userId]
+    );
+
+    const user = result.rows[0];
+    console.log(user?.role);
     const { rows } = await pool.query<Package>(
-      "SELECT * FROM packages WHERE id = $1",
+      "SELECT * FROM packages WHERE user_id = $1",
       [req.params.id]
     );
     if (rows.length === 0) {
