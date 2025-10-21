@@ -15,16 +15,6 @@ export const getAllPackages = async (req: Request, res: Response) => {
 
 export const getPackageByUserId = async (req: Request, res: Response) => {
   try {
-    console.log(req.params.id);
-    const userId = parseInt(req.params.id as string, 10);
-
-    const result = await pool.query<User>(
-      "SELECT role FROM users WHERE id = $1",
-      [userId]
-    );
-
-    const user = result.rows[0];
-    console.log(user?.role);
     const { rows } = await pool.query<Package>(
       "SELECT * FROM packages WHERE user_id = $1",
       [req.params.id]
