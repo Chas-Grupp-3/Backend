@@ -1,6 +1,8 @@
 import pool from "../db.js";
 import type { Request, Response } from "express";
 import type { User } from "../types/user.js";
+import { v4 as uuidv4 } from "uuid"
+
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const { rows } = await pool.query<User>(
@@ -34,7 +36,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const newUser: User = req.body;
+    const newUser: User = { id: uuidv4(), ...req.body };
     const columns = Object.keys(newUser).join(", ");
     const values = Object.values(newUser);
     const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
