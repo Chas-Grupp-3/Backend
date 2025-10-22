@@ -12,6 +12,10 @@ import {
 
 const router = express.Router();
 
+// Create a new user
+router.post("/", async (req: Request, res: Response) => {
+  createUser(req, res);
+});
 // Get all users
 router.get("/", async (req: Request, res: Response) => {
   getAllUsers(req, res);
@@ -22,10 +26,6 @@ router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
 });
 
-// Create a new user
-router.post("/", async (req: Request, res: Response) => {
-  createUser(req, res);
-});
 
 // Update a user
 router.put("/:id", async (req: Request, res: Response) => {
