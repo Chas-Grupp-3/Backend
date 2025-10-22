@@ -1,3 +1,4 @@
+-- Drop old columns safely, removing dependencies
 ALTER TABLE packages
 DROP COLUMN IF EXISTS driver_id CASCADE,
 DROP COLUMN IF EXISTS sender_id CASCADE;
