@@ -15,14 +15,27 @@ export const getAllPackages = async (req: Request, res: Response) => {
 
 export const getPackageByUserId = async (req: Request, res: Response) => {
   try {
-    const { rows } = await pool.query<Package>(
-      "SELECT * FROM packages WHERE user_id = $1",
+    const data = await pool.query<User>(
+      "SELECT role FROM users WHERE id = $1",
       [req.params.id]
     );
-    if (rows.length === 0) {
-      return res.status(404).send("Package not found");
+
+    const user = data.rows[0];
+    async function getPackagesByRole(
+      userId: string,
+      role: "driver" | "user" | "admin"
+    ) {
+      const column = role === "driver" ? "driver_id" : "sender_id";
+
+      const query = `SELECT * FROM packages WHERE ${column} = $1`;
+
+      const { rows } = await pool.query<Package>(query, [userId]);
+
+      return rows;
     }
-    res.json(rows[0]);
+    const packages = await getPackagesByRole(req.params.id, user.role);
+    console.log(packages);
+    res.json(packages.map((pkg) => ({ ...pkg }))); // ensures plain JSON
   } catch (error) {
     console.error("Error getting package:", error);
     res.status(500).send("Internal Server Error");
