@@ -13,6 +13,20 @@ export const getAllPackages = async (req: Request, res: Response) => {
   }
 };
 
+export const getPackageById = async (req: Request, res: Response) => {
+  try {
+    const { rows } = await pool.query<User>(
+      "SELECT * FROM packages WHERE package_id = $1",
+      [req.params.id]
+    );
+
+    res.json(rows);
+  } catch (error) {
+    console.error("Error getting package:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 export const getPackageByUserId = async (req: Request, res: Response) => {
   try {
     const data = await pool.query<User>(

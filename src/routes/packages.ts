@@ -5,6 +5,7 @@ import {
   createPackage,
   deletePackage,
   getAllPackages,
+  getPackageById,
   getPackageByUserId,
   markAsDelivered,
   updatePackage,
@@ -17,9 +18,14 @@ router.get("/", async (req: Request, res: Response) => {
   getAllPackages(req, res);
 });
 
-// Get a package by ID
+// Get a package by UserID
 router.get("/:id", async (req: Request, res: Response) => {
   getPackageByUserId(req, res);
+});
+
+// Get a package by ID
+router.get("/package:id", async (req: Request, res: Response) => {
+  getPackageById(req, res);
 });
 
 // Create a new package
