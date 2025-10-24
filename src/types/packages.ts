@@ -4,8 +4,11 @@ export interface Package {
   temperature: number;
   humidity: number;
   delivered: boolean;
-  sender_id: string;
+  receiver_id: string;
   driver_id: string;
   arrival_date: Date;
   date: Date;
+  destination: string;
+  sender: string;
+  thresholds: [];
 }

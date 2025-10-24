@@ -69,6 +69,10 @@ export const createPackage = async (req: Request, res: Response) => {
       "date",
       "humidity",
       "delivered",
+      "receiver_id",
+      "driver_id",
+      "arrival_date",
+      "destination",
     ];
 
     // Build an array with values in the same order as columns
