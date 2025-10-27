@@ -1,7 +1,7 @@
 import pool from "../db.js";
 import type { Request, Response } from "express";
 import type { User } from "../types/user.js";
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {

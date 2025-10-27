@@ -26,7 +26,6 @@ router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
 });
 
-
 // Update a user
 router.put("/:id", async (req: Request, res: Response) => {
   updateUser(req, res);

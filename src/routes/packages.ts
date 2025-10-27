@@ -43,10 +43,6 @@ router.put("/delivered:id", async (req: Request, res: Response) => {
   markAsDelivered(req, res);
 });
 
-//create update location route
-//add delivered date
-//rewrite part of the API code and make a easy dashboard?
-
 // Delete a package
 router.delete("/:id", async (req: Request, res: Response) => {
   deletePackage(req, res);

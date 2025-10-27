@@ -29,12 +29,14 @@ export const getPackageById = async (req: Request, res: Response) => {
 
 export const getPackageByUserId = async (req: Request, res: Response) => {
   try {
+    //Gets role from the specified id
     const data = await pool.query<User>(
       "SELECT role FROM users WHERE id = $1",
       [req.params.id]
     );
 
     const user = data.rows[0];
+    //Function to be able to get packages based on role of userid
     async function getPackagesByRole(
       userId: string,
       role: "driver" | "user" | "admin"
@@ -58,9 +60,8 @@ export const getPackageByUserId = async (req: Request, res: Response) => {
 
 export const createPackage = async (req: Request, res: Response) => {
   try {
-    console.log("request data:", req.body);
     const newPackage = req.body;
-    console.log("package data:", newPackage);
+
     // Define the columns you want to insert
     const columns = [
       "location",
@@ -83,6 +84,10 @@ export const createPackage = async (req: Request, res: Response) => {
       newPackage.date ?? new Date(),
       newPackage.humidity ?? null,
       newPackage.delivered ?? null,
+      newPackage.arrival_date ?? null,
+      newPackage.destination ?? null,
+      newPackage.driver_id ?? null,
+      newPackage.receiver_id ?? null,
     ];
 
     // Generate placeholders like $1, $2, $3...
