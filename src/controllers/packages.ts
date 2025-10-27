@@ -39,7 +39,7 @@ export const getPackageByUserId = async (req: Request, res: Response) => {
       userId: string,
       role: "driver" | "user" | "admin"
     ) {
-      const column = role === "driver" ? "driver_id" : "sender_id";
+      const column = role === "driver" ? "driver_id" : "receiver_id";
 
       const query = `SELECT * FROM packages WHERE ${column} = $1`;
 
