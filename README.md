@@ -170,6 +170,20 @@ Authorization: Bearer <jwt_token>
 
 **Available Roles:** `admin`, `user`, `driver`
 
+## 📚 Pipeline Documentation
+
+#### Migrate database
+
+We have a pipeline for doing database migrations that uses a workflow dispatch to manually run via github, it uses flyway to run the migrations.
+
+#### Deploy code
+
+A pipeline that builds the app and deploys it to azure as a webapp.
+
+#### CI pipeline
+
+A pipeline that runs on push and pull request on main and dev branches it ensures the project is stable and able to run
+
 ## 🏗 Project Structure
 
 ```
@@ -210,7 +224,3 @@ npm test
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Made with ❤️ by Chas Advance Team
