@@ -1,9 +1,10 @@
 name: API Docs Deploy
 
-# Trigger on pushes to dev or main
+# Trigger on pushes to dev or main, and allow manual trigger
 on:
   push:
     branches: ["dev", "main"]
+  workflow_dispatch: # <-- allows you to manually trigger from GitHub UI
 
 # Give the workflow permission to push
 permissions:
