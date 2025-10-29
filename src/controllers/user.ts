@@ -18,6 +18,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
+    console.log(req);
     const { rows } = await pool.query<User>(
       "SELECT id, name, email, role FROM users WHERE id = $1",
       [req.params.id]
@@ -89,7 +90,7 @@ export const updateLocation = async (req: Request, res: Response) => {
     );
 
     if (rows.length === 0) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("location not updated");
     }
 
     res.json(rows[0]);

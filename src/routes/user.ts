@@ -27,7 +27,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
 });
 
-router.put("/location:id", async (req: Request, res: Response) => {
+router.put("/location/:id", async (req: Request, res: Response) => {
   updateLocation(req, res);
 });
 
