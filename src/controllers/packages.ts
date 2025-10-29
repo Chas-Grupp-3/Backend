@@ -20,7 +20,7 @@ export const getPackageById = async (req: Request, res: Response) => {
       [req.params.id]
     );
 
-    res.json(rows);
+    res.json(rows[0]);
   } catch (error) {
     console.error("Error getting package:", error);
     res.status(500).send("Internal Server Error");
