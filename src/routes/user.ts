@@ -96,10 +96,6 @@ router.put("/location/:id", async (req: Request, res: Response) => {
   updateLocation(req, res);
 });
 
-router.put("/location/:id", async (req: Request, res: Response) => {
-  updateLocation(req, res);
-});
-
 /**
  * @swagger
  * /users/{id}:
