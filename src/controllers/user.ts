@@ -78,6 +78,27 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+export const updateLocation = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const location = req.body;
+
+    const { rows } = await pool.query<User>(
+      "UPDATE users SET location = $1 WHERE id = $2 RETURNING location",
+      [location, userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).send("User not found");
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const { rowCount } = await pool.query("DELETE FROM users WHERE id = $1", [

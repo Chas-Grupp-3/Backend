@@ -7,6 +7,7 @@ import {
   deleteUser,
   getAllUsers,
   getUserById,
+  updateLocation,
   updateUser,
 } from "../controllers/user.js";
 
@@ -24,6 +25,10 @@ router.get("/", async (req: Request, res: Response) => {
 // Get a user by ID
 router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
+});
+
+router.put("/location:id", async (req: Request, res: Response) => {
+  updateLocation(req, res);
 });
 
 // Update a user
