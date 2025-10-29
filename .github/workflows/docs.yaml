@@ -1,0 +1,31 @@
+name: API Docs Deploy
+
+on:
+  push:
+    branches: ["dev", "main"] # Runs when you push to dev or main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # or whatever version you use locally
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate API docs
+        run: npm run docs:generate
+
+      - name: Deploy docs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Built-in, no need to add manually
+          publish_dir: ./docs # This is where openapi.json + index.html live
+          publish_branch: gh-pages # Optional, defaults to gh-pages

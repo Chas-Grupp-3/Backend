@@ -13,37 +13,205 @@ import {
 
 const router = express.Router();
 
-// Get all
+/**
+ * @swagger
+ * /packages:
+ *   get:
+ *     summary: Get all packages
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of packages
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Package'
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/", async (req: Request, res: Response) => {
   getAllPackages(req, res);
 });
 
-// Get a package by UserID
+/**
+ * @swagger
+ * /packages/{id}:
+ *   get:
+ *     summary: Get packages by user ID
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: List of packages for the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Package'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No packages found for this user
+ */
 router.get("/:id", async (req: Request, res: Response) => {
   getPackageByUserId(req, res);
 });
 
-// Get a package by ID
+/**
+ * @swagger
+ * /packages/package{id}:
+ *   get:
+ *     summary: Get a package by ID
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Package ID
+ *     responses:
+ *       200:
+ *         description: Package found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Package'
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Package not found
+ */
 router.get("/package:id", async (req: Request, res: Response) => {
   getPackageById(req, res);
 });
 
-// Create a new package
+/**
+ * @swagger
+ * /packages:
+ *   post:
+ *     summary: Create a new package
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PackageInput'
+ *     responses:
+ *       201:
+ *         description: Package created successfully
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ */
 router.post("/", async (req: Request, res: Response) => {
   createPackage(req, res);
 });
 
-// Update a package
+/**
+ * @swagger
+ * /packages/{id}:
+ *   put:
+ *     summary: Update a package
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Package ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PackageInput'
+ *     responses:
+ *       200:
+ *         description: Package updated successfully
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Package not found
+ */
 router.put("/:id", async (req: Request, res: Response) => {
   updatePackage(req, res);
 });
 
-// Update a package frontend
+/**
+ * @swagger
+ * /packages/delivered{id}:
+ *   put:
+ *     summary: Mark a package as delivered
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Package ID
+ *     responses:
+ *       200:
+ *         description: Package marked as delivered
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Package not found
+ */
 router.put("/delivered:id", async (req: Request, res: Response) => {
   markAsDelivered(req, res);
 });
 
-// Delete a package
+/**
+ * @swagger
+ * /packages/{id}:
+ *   delete:
+ *     summary: Delete a package
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Package ID
+ *     responses:
+ *       200:
+ *         description: Package deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Package not found
+ */
 router.delete("/:id", async (req: Request, res: Response) => {
   deletePackage(req, res);
 });
