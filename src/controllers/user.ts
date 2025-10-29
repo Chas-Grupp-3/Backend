@@ -18,6 +18,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
+    console.log(req);
     const { rows } = await pool.query<User>(
       "SELECT id, name, email, role FROM users WHERE id = $1",
       [req.params.id]
@@ -74,6 +75,29 @@ export const updateUser = async (req: Request, res: Response) => {
     res.json(rows[0]);
   } catch (error) {
     console.error("Error updating user:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const updateLocation = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const location = req.body;
+    console.log("location:", location);
+    console.log("userId:", userId);
+
+    const { rows } = await pool.query<User>(
+      "UPDATE drivers SET location = $1 WHERE driver_uuid = $2 RETURNING location",
+      [location, userId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).send("location not updated");
+    }
+
+    res.json(rows[0]);
+  } catch (error) {
+    console.error("Error fetching user:", error);
     res.status(500).send("Internal Server Error");
   }
 };
