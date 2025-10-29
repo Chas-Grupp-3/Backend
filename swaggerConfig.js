@@ -15,7 +15,7 @@ const options = {
     ],
   },
   // 👇 Här anger du var dina routes finns
-  apis: ["./routes/*.js"], // ändra till rätt sökväg för dina filer
+  apis: ["./src/routes/*.ts"],
 };
 
 // Generera Swagger-specifikationen
