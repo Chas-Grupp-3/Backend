@@ -108,7 +108,7 @@ export const createPackage = async (req: Request, res: Response) => {
 
 export const updatePackage = async (req: Request, res: Response) => {
   try {
-    const { date, temperature, humidity } = req.body;
+    const { date, temperature, humidity, location } = req.body;
     const packageId = req.params.id;
 
     const columnsToUpdate: string[] = [];
@@ -126,6 +126,10 @@ export const updatePackage = async (req: Request, res: Response) => {
       columnsToUpdate.push(`humidity = $${columnsToUpdate.length + 1}`);
       values.push(humidity);
     }
+    if (location !== undefined) {
+      columnsToUpdate.push(`location = $${columnsToUpdate.length + 1}`);
+      values.push(location);
+    }
 
     if (columnsToUpdate.length === 0) {
       return res.status(400).send("No valid fields to update");
@@ -135,7 +139,7 @@ export const updatePackage = async (req: Request, res: Response) => {
 
     const query = `UPDATE packages SET ${columnsToUpdate.join(
       ", "
-    )} WHERE id = $${values.length} RETURNING *`;
+    )} WHERE package_id = $${values.length} RETURNING *`;
 
     const { rows } = await pool.query<Package>(query, values);
 
