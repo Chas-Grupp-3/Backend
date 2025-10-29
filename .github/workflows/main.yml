@@ -38,9 +38,6 @@ jobs:
       # --- Installera beroenden ---
       - run: npm install
 
-      - name: Build project
-        uses: npm run build
-
       # --- (Frivilligt) Analysera kod med CodeQL ---
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
