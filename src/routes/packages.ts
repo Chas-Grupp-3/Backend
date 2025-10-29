@@ -97,7 +97,7 @@ router.get("/:id", async (req: Request, res: Response) => {
  *       404:
  *         description: Package not found
  */
-router.get("/package:id", async (req: Request, res: Response) => {
+router.get("/package/:id", async (req: Request, res: Response) => {
   getPackageById(req, res);
 });
 
@@ -185,7 +185,7 @@ router.put("/:id", async (req: Request, res: Response) => {
  *       404:
  *         description: Package not found
  */
-router.put("/delivered:id", async (req: Request, res: Response) => {
+router.put("/delivered/:id", async (req: Request, res: Response) => {
   markAsDelivered(req, res);
 });
 
