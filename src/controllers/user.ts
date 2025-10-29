@@ -83,6 +83,8 @@ export const updateLocation = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
     const location = req.body;
+    console.log("location:", location);
+    console.log("userId:", userId);
 
     const { rows } = await pool.query<User>(
       "UPDATE drivers SET location = $1 WHERE driver_uuid = $2 RETURNING location",
