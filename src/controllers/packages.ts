@@ -161,7 +161,7 @@ export const markAsDelivered = async (req: Request, res: Response) => {
     const query = `
   UPDATE packages
   SET delivered = true
-  WHERE id = $1
+  WHERE package_id = $1
   RETURNING *
 `;
 
@@ -181,7 +181,7 @@ export const markAsDelivered = async (req: Request, res: Response) => {
 export const deletePackage = async (req: Request, res: Response) => {
   try {
     const { rowCount } = await pool.query(
-      "DELETE FROM packages WHERE id = $1",
+      "DELETE FROM packages WHERE package_id = $1",
       [req.params.id]
     );
     if (rowCount === 0) {
