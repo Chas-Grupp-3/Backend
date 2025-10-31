@@ -15,7 +15,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users:
+ * /user:
  *   post:
  *     summary: Create a new user
  *     tags: [Users]
@@ -39,7 +39,7 @@ router.post("/", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users:
+ * /user:
  *   get:
  *     summary: Get all users
  *     tags: [Users]
@@ -63,7 +63,7 @@ router.get("/", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   get:
  *     summary: Get a user by ID
  *     tags: [Users]
@@ -92,13 +92,45 @@ router.get("/:id", async (req: Request, res: Response) => {
   getUserById(req, res);
 });
 
+/**
+ * @swagger
+ * /user/location/{id}:
+ *   put:
+ *     summary: Update a user's location
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             description: Location object
+ *     responses:
+ *       200:
+ *         description: Location updated
+ *       400:
+ *         description: Invalid input
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ */
 router.put("/location/:id", async (req: Request, res: Response) => {
   updateLocation(req, res);
 });
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   put:
  *     summary: Update a user
  *     tags: [Users]
@@ -133,7 +165,7 @@ router.put("/:id", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   delete:
  *     summary: Delete a user
  *     tags: [Users]

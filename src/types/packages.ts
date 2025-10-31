@@ -1,5 +1,5 @@
 export interface Package {
-  id: string;
+  package_id: string;
   location: string;
   temperature: number;
   humidity: number;

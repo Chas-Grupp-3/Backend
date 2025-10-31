@@ -12,7 +12,7 @@ const allowedRoles = ["admin", "user", "driver"];
 
 /**
  * @swagger
- * /auth/register:
+ * /login/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Authentication]
@@ -106,7 +106,7 @@ router.post(
 
 /**
  * @swagger
- * /auth/login:
+ * /login/login:
  *   post:
  *     summary: Login user
  *     tags: [Authentication]

@@ -58,6 +58,38 @@ export const getPackageByUserId = async (req: Request, res: Response) => {
   }
 };
 
+export const addDriverToPackage = async (req: Request, res: Response) => {
+  try {
+    const driverId = req.params.id;
+    const { package_id } = req.body;
+
+    const data = await pool.query<Package>(
+      "SELECT driver_id FROM packages WHERE package_id = $1",
+      [package_id]
+    );
+    const p = data.rows[0];
+
+    // if no package.id no run
+
+    if (p === undefined) {
+      const { rows } = await pool.query<Package>(
+        "UPDATE packages SET driver_id = $2 WHERE package_id = $1 RETURNING package_id",
+        [package_id, driverId]
+      );
+      res.json(rows[0]);
+    } else if (p !== undefined) {
+      console.error("Package already has a assigned driver");
+      res.status(400).send("Package already has a assigned driver");
+    } else {
+      console.error("Something went wrong");
+      res.status(400).send("Something went wrong");
+    }
+  } catch (error) {
+    console.error("Error getting package:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 export const createPackage = async (req: Request, res: Response) => {
   try {
     const newPackage = req.body;

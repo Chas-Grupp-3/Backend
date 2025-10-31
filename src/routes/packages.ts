@@ -2,6 +2,7 @@ import express from "express";
 import type { Request, Response } from "express";
 import { authenticateToken } from "../middlewares/authentication.js";
 import {
+  addDriverToPackage,
   createPackage,
   deletePackage,
   getAllPackages,
@@ -72,7 +73,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /packages/package{id}:
+ * /packages/package/{id}:
  *   get:
  *     summary: Get a package by ID
  *     tags: [Packages]
@@ -162,9 +163,51 @@ router.put("/:id", async (req: Request, res: Response) => {
   updatePackage(req, res);
 });
 
+router.put("/add/:id", async (req: Request, res: Response) => {
+  addDriverToPackage(req, res);
+});
+
 /**
  * @swagger
- * /packages/delivered{id}:
+ * /packages/add/{id}:
+ *   put:
+ *     summary: Assign a driver to a package
+ *     tags: [Packages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Driver ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - package_id
+ *             properties:
+ *               package_id:
+ *                 type: string
+ *                 description: Package ID to assign the driver to
+ *     responses:
+ *       200:
+ *         description: Driver assigned to package
+ *       400:
+ *         description: Package already has an assigned driver or bad request
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Package not found
+ */
+
+/**
+ * @swagger
+ * /packages/delivered/{id}:
  *   put:
  *     summary: Mark a package as delivered
  *     tags: [Packages]

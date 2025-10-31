@@ -18,20 +18,40 @@ const options = {
         Package: {
           type: "object",
           properties: {
-            id: { type: "string" },
-            userId: { type: "string" },
-            status: { type: "string" },
-            createdAt: { type: "string", format: "date-time" },
+            package_id: { type: "string" },
+            location: { type: "string" },
+            temperature: { type: "number", nullable: true },
+            humidity: { type: "number", nullable: true },
+            delivered: { type: "boolean" },
+            receiver_id: { type: "string", nullable: true },
+            driver_id: { type: "string", nullable: true },
+            arrival_date: {
+              type: "string",
+              format: "date-time",
+              nullable: true,
+            },
+            date: { type: "string", format: "date-time", nullable: true },
+            destination: { type: "string", nullable: true },
+            sender: { type: "string" },
+            thresholds: { type: "array", items: {}, nullable: true },
           },
-          required: ["id", "userId", "status"],
+          required: ["package_id", "location", "sender"],
         },
         PackageInput: {
           type: "object",
           properties: {
-            userId: { type: "string" },
-            status: { type: "string" },
+            location: { type: "string" },
+            temperature: { type: "number" },
+            sender: { type: "string" },
+            date: { type: "string", format: "date-time" },
+            humidity: { type: "number" },
+            delivered: { type: "boolean" },
+            receiver_id: { type: "string" },
+            driver_id: { type: "string" },
+            arrival_date: { type: "string", format: "date-time" },
+            destination: { type: "string" },
           },
-          required: ["userId", "status"],
+          required: ["location", "sender"],
         },
         User: {
           type: "object",
@@ -39,9 +59,9 @@ const options = {
             id: { type: "string" },
             email: { type: "string" },
             name: { type: "string" },
-            role: { type: "string" },
+            role: { type: "string", enum: ["driver", "user", "admin"] },
           },
-          required: ["id", "email", "name"],
+          required: ["id", "email", "name", "role"],
         },
       },
       securitySchemes: {
@@ -58,8 +78,8 @@ const options = {
       { name: "Authentication", description: "Authentication endpoints" },
     ],
   },
-  // Här anger du sökvägen till alla dina route-filer
-  apis: ["./src/routes/**/*.ts"], // Recursive scan
+  // Här anger du sökvägen till alla dina TS-filer (routes/controllers can hold JSDoc)
+  apis: ["./src/**/*.ts"], // Recursive scan
 };
 
 // Generera Swagger-specifikationen
