@@ -27,7 +27,7 @@ app.get("/", (req, res) => res.send("Hello World"));
 app.get("/test-api", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
-
+    console.error("test error");
     res.json(result.rows);
   } catch (err) {
     console.error("❌ Query failed:", err);
